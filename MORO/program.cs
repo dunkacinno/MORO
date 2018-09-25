@@ -39,13 +39,14 @@ namespace MORO
     class ChatConsole : Console
     {
         public ChatConsole(string title, string carot)
-            : base(158, 3)
+            : base(160, 51)
         {
             Fill(Color.Gray, Color.Gray, 176);
-            Print(0, 0, title.Align(HorizontalAlignment.Center, Width), Color.Black, Color.Yellow);
-            Print(0, 1, carot.Align(HorizontalAlignment.Left, Width), Color.Black, Color.Gray);
+            Print(1, 158, title.Align(HorizontalAlignment.Center, Width), Color.Black, Color.Yellow);
+            Print(2, 159, carot.Align(HorizontalAlignment.Left, Width), Color.Black, Color.Linen);
             Cursor.IsVisible = true;
-            Cursor.Position = new Point(2, 1);
+            Cursor.Position = new Point(2, 47);
+           
         }
     }
 
@@ -85,14 +86,18 @@ namespace MORO
         private static void Init()
         {
 
-            SadConsole.Global.CurrentScreen = new SadConsole.ScreenObject();
+            //SadConsole.Global.CurrentScreen = new SadConsole.ScreenObject();
+            var console = new ChatConsole("Chat", "->") { Position = new Point(0, 0) };
+            Global.CurrentScreen = console;
             SadConsole.Global.CurrentScreen.Children.Add(new TitleConsole("1") { Position = new Point(1, 1) });
             SadConsole.Global.CurrentScreen.Children.Add(new TitleConsole("2") { Position = new Point(1, 9) });
             SadConsole.Global.CurrentScreen.Children.Add(new TitleConsole("3") { Position = new Point(1, 17) });
             SadConsole.Global.CurrentScreen.Children.Add(new MapConsole("World") { Position = new Point(27, 1) });
             SadConsole.Global.CurrentScreen.Children.Add(new StatusConsole("Status") { Position = new Point(1, 37) });
-            SadConsole.Global.CurrentScreen.Children.Add(new ChatConsole("Chat", "->") { Position = new Point(1, 47) });
-            //SadConsole.Global.FocusedConsoles.Set(ChatConsole);
+            //SadConsole.Global.CurrentScreen.Children.Add(new ChatConsole("Chat", "->") { Position = new Point(1, 47) });
+            SadConsole.Global.CurrentScreen = console;
+            SadConsole.Global.FocusedConsoles.Set(console);
+
 
         }
 
