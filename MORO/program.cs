@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace MORO
 {
+ 
 
     class TitleConsole : Console
     {
@@ -39,15 +40,38 @@ namespace MORO
     class ChatConsole : Console
     {
         public ChatConsole(string title, string carot)
-            : base(160, 51)
+            : base(160, 1)
         {
-            Fill(Color.Gray, Color.Gray, 176);
-            Print(1, 158, title.Align(HorizontalAlignment.Center, Width), Color.Black, Color.Yellow);
-            Print(2, 159, carot.Align(HorizontalAlignment.Left, Width), Color.Black, Color.Linen);
-            Cursor.IsVisible = true;
-            Cursor.Position = new Point(2, 47);
-           
+            //Fill(Color.Transparent, Color.Transparent , 176);
+            //Print(1, 158, title.Align(HorizontalAlignment.Center, Width), Color.Transparent, Color.Transparent);
+            //Print(2, 159, carot.Align(HorizontalAlignment.Left, Width), Color.Transparent, Color.Transparent);
+            //Cursor.IsVisible = true;
+
+            //var input = new SadConsole.Controls.TextBox(14);
+            //input.Position = new Point(10, 8);
+            //Cursor.Position = new Point(2, 47);
+
+            
+
         }
+    }
+    class InputCon : Console
+    {
+        public InputCon()
+            :base(160,3)
+        {
+            var console = new SadConsole.ControlsConsole(160, 3);
+            var input = new SadConsole.Controls.TextBox(160);
+
+
+            input.Position = new Point(3, 3);
+
+            Fill(Color.Red, Color.Red, 176);
+            console.Add(input);
+            
+
+        }
+
     }
 
 
@@ -83,20 +107,34 @@ namespace MORO
            //do stuff
         }
 
+
+
         private static void Init()
         {
+            
+            //var chatCon = new ChatConsole("Chat", "->") { Position = new Point(1, 47) };
+            SadConsole.Global.CurrentScreen = new SadConsole.ScreenObject();
+            var test = (new InputCon() { Position = new Point(1, 47) });
 
-            //SadConsole.Global.CurrentScreen = new SadConsole.ScreenObject();
-            var console = new ChatConsole("Chat", "->") { Position = new Point(0, 0) };
-            Global.CurrentScreen = console;
+
             SadConsole.Global.CurrentScreen.Children.Add(new TitleConsole("1") { Position = new Point(1, 1) });
             SadConsole.Global.CurrentScreen.Children.Add(new TitleConsole("2") { Position = new Point(1, 9) });
             SadConsole.Global.CurrentScreen.Children.Add(new TitleConsole("3") { Position = new Point(1, 17) });
             SadConsole.Global.CurrentScreen.Children.Add(new MapConsole("World") { Position = new Point(27, 1) });
             SadConsole.Global.CurrentScreen.Children.Add(new StatusConsole("Status") { Position = new Point(1, 37) });
-            //SadConsole.Global.CurrentScreen.Children.Add(new ChatConsole("Chat", "->") { Position = new Point(1, 47) });
-            SadConsole.Global.CurrentScreen = console;
-            SadConsole.Global.FocusedConsoles.Set(console);
+            //SadConsole.Global.CurrentScreen.Children.Add(new InputCon() { Position = new Point(1, 47) });
+
+
+
+            //SadConsole.Global.CurrentScreen.Children.Add(new InputCon());
+            //SadConsole.Global.CurrentScreen.Children.Add(chatCon);
+            SadConsole.Global.CurrentScreen.Children.Add(test);
+            SadConsole.Global.FocusedConsoles.Set(test);
+
+
+
+
+
 
 
         }
